@@ -36,8 +36,6 @@ class CartItem extends Model
 
     ];
 
-
-
     /**
      * Корзина, которой принадлежит элемент
      */
@@ -47,8 +45,6 @@ class CartItem extends Model
             Cart::class
         );
     }
-
-
 
     /**
      * Вариант продукта

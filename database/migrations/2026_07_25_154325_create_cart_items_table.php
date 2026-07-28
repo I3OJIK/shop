@@ -18,6 +18,11 @@ return new class extends Migration
             $table->integer('quantity')->default(1);
             $table->boolean('is_selected')->default(false);
             $table->timestamps();
+
+            $table->unique([
+                'cart_id',
+                'product_variant_id'
+            ]);
         });
     }
 

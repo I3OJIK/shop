@@ -31,7 +31,6 @@ class Address extends Model
         'floor',
     ];
 
-
     /**
      * Пользователь которому принадлежит адрес
      */

@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * Product model
@@ -23,6 +25,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read Category                          $category
  * @property-read Collection<int, ProductVariant>   $variants
  * @property-read Collection<int, ProductAttribute> $attributes
+ * @property-read Collection<int, ProductImage> $images
  */
 class Product extends Model
 {
@@ -37,11 +40,9 @@ class Product extends Model
 
     ];
 
-
     protected $casts = [
         'is_active' => 'boolean',
     ];
-
 
     /**
      * Бренд продукта
@@ -51,8 +52,6 @@ class Product extends Model
         return $this->belongsTo(Brand::class);
     }
 
-
-
     /**
      * Категория продукта
      */
@@ -60,7 +59,6 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class);
     }
-
 
     /**
      * Варианты продукта
@@ -72,8 +70,6 @@ class Product extends Model
         );
     }
 
-
-
     /**
      * Атрибуты продукта
      */
@@ -84,12 +80,17 @@ class Product extends Model
         );
     }
 
+    public function images(): HasMany
+    {
+        return $this->hasMany(
+            ProductImage::class
+        );
+    }
 
-
-    // public function images(): HasMany
-    // {
-    //     return $this->hasMany(
-    //         ProductImage::class
-    //     );
-    // }
+    public function mainImage(): HasOne
+    {
+        return $this->hasOne(ProductImage::class)
+            ->whereNull('product_variant_id')
+            ->where('is_main', true);
+    }
 }

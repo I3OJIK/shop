@@ -41,16 +41,12 @@ class OrderItem extends Model
 
     ];
 
-
-
     protected $casts = [
 
         'price' => 'decimal:2',
         'total' => 'decimal:2',
 
     ];
-
-
 
     /**
      * Заказ, которому принадлежит элемент заказа
@@ -61,8 +57,6 @@ class OrderItem extends Model
             Order::class
         );
     }
-
-
 
     /**
      * Вариант продукта

@@ -23,7 +23,6 @@ class Cart extends Model
         'user_id',
     ];
 
-
     /**
      * Пользователь которому прингадлежит корзина
      */
@@ -31,7 +30,6 @@ class Cart extends Model
     {
         return $this->belongsTo(User::class);
     }
-
 
     /**
      * Элементы данной корзины

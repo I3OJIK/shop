@@ -23,7 +23,6 @@ class Brand extends Model
         'slug',
     ];
 
-
     /**
      * Продукты данного бренда
      */

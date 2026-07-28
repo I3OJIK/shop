@@ -32,8 +32,6 @@ class Attribute extends Model
         'is_variant' => 'boolean',
     ];
 
-
-
     /**
      * Значения данного атрибута (Color: red, blue, green)
      */
@@ -44,8 +42,6 @@ class Attribute extends Model
         );
     }
 
-
-
     /**
      * Продукты использующие данный атрибут
      */
@@ -55,7 +51,6 @@ class Attribute extends Model
             ProductAttribute::class
         );
     }
-
 
     /**
      * Варианты продуктов использующие данный атрибут
