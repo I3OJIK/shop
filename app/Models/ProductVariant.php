@@ -4,6 +4,7 @@ namespace App\Models;
 
 
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -28,6 +29,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  */
 class ProductVariant extends Model
 {
+    use HasFactory;
     protected $fillable = [
 
         'product_id',
@@ -52,7 +54,7 @@ class ProductVariant extends Model
         );
     }
 
-    public function variantAttributes(): HasMany
+    public function Attributes(): HasMany
     {
         return $this->hasMany(
             VariantAttribute::class

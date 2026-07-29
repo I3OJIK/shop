@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -26,9 +27,11 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property-read Collection<int, ProductVariant>   $variants
  * @property-read Collection<int, ProductAttribute> $attributes
  * @property-read Collection<int, ProductImage> $images
+ * @property-read ProductImage $mainImage
  */
 class Product extends Model
 {
+    use HasFactory;
     protected $fillable = [
 
         'brand_id',

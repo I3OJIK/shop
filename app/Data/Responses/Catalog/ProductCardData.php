@@ -2,8 +2,11 @@
 
 namespace App\Data\Responses\Catalog;
 
+use App\Builders\ProductOptionsBuilder;
 use App\Models\Product;
+use Illuminate\Support\Collection;
 use OpenApi\Attributes as OA;
+use Spatie\LaravelData\Attributes\DataCollectionOf;
 use Spatie\LaravelData\Data;
 
 #[OA\Schema]
@@ -22,11 +25,29 @@ class ProductCardData extends Data
         #[OA\Property(example: '999.99')]
         public string $price,
 
+        /**
+         * Доступные варианты выбора товара.
+         *
+         * Например:
+         *
+         * Color:
+         *  - Black
+         *  - Blue
+         *
+         * Storage:
+         *  - 128GB
+         *  - 256GB
+         */
+        #[DataCollectionOf(AvailableOptionData::class)]
+        public Collection $available_options,
+
         public BrandData $brand,
 
         public CategoryData $category,
 
         public ?ImageData $image,
+
+
     ) {
     }
 
@@ -39,6 +60,9 @@ class ProductCardData extends Data
 
             // Загружаем через withMin('variants', 'price')
             price: (string) $product->variants_min_price,
+
+            available_options: app(ProductOptionsBuilder::class)
+            ->build($product),
 
             brand: BrandData::fromModel($product->brand),
 

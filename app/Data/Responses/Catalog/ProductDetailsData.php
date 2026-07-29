@@ -59,7 +59,7 @@ class ProductDetailsData extends Data
             category: CategoryData::fromModel($product->category),
 
             attributes: AttributeData::collect(
-                $product->productAttributes
+                $product->Attributes
             )->all(),
 
             variants: VariantData::collect(
