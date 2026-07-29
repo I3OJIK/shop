@@ -31,10 +31,10 @@ class ProductIndexData extends Data
         public ?array $attributes = null,
 
         #[OA\Property(example: '500.00')]
-        public ?string $price_from = null,
+        public ?float $price_from = null,
 
         #[OA\Property(example: '1500.00')]
-        public ?string $price_to = null,
+        public ?float $price_to = null,
 
         #[OA\Property(example: 'price_asc')]
         public ?string $sort = null,
