@@ -14,36 +14,29 @@ class CategorySeeder extends Seeder
             'slug' => 'electronics',
         ]);
 
-        $phones = Category::create([
+
+        $phones = $electronics->children()->create([
             'name' => 'Смартфоны',
             'slug' => 'smartphones',
         ]);
 
-        $phones->appendToNode($electronics)
-            ->save();
 
-        $iphone = Category::create([
-            'name' => 'iPhone',
-            'slug' => 'iphone',
+        $phones->children()->createMany([
+            [
+                'name' => 'iPhone',
+                'slug' => 'iphone',
+            ],
+            [
+                'name' => 'Android',
+                'slug' => 'android',
+            ],
         ]);
 
-        $android = Category::create([
-            'name' => 'Android',
-            'slug' => 'android',
+
+        $electronics->children()->create([
+            'name' => 'Ноутбуки',
+            'slug' => 'laptops',
         ]);
-
-        $iphone->appendToNode($phones)
-            ->save();
-
-        $android->appendToNode($phones)
-            ->save();
-
-        $laptops = Category::create([
-            'name'=>'Ноутбуки',
-            'slug'=>'laptops',
-        ]);
-
-        $laptops->appendToNode($electronics)
-            ->save();
+        Category::fixTree();
     }
 }

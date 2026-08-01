@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('nested_set', function (Blueprint $table) {
+        Schema::table('categories', function (Blueprint $table) {
             $table->dropForeign(['parent_id']);
             $table->dropColumn('parent_id');
 
             $table->nestedSet();
+            $table->nestedSetDepth();
         });
     }
 
@@ -24,8 +25,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('nested_set', function (Blueprint $table) {
+        Schema::table('categories', function (Blueprint $table) {
             $table->dropNestedSet();
+            $table->dropNestedSetDepth();
 
             $table->foreignId('parent_id')
                 ->nullable()
