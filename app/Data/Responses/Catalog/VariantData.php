@@ -6,7 +6,6 @@ use App\Models\ProductVariant;
 use OpenApi\Attributes as OA;
 use Spatie\LaravelData\Attributes\DataCollectionOf;
 use Spatie\LaravelData\Data;
-use Spatie\LaravelData\DataCollection;
 
 #[OA\Schema]
 class VariantData extends Data
@@ -45,7 +44,7 @@ class VariantData extends Data
             is_active: $variant->is_active,
 
             attributes: AttributeData::collect(
-                $variant->variantAttributes
+                $variant->attributes
             )->all(),
         );
     }

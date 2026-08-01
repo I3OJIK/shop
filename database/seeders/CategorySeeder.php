@@ -4,48 +4,46 @@ namespace Database\Seeders;
 
 use App\Models\Category;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Str;
 
 class CategorySeeder extends Seeder
 {
     public function run(): void
     {
-        $categories = [
+        $electronics = Category::create([
+            'name' => 'Электроника',
+            'slug' => 'electronics',
+        ]);
 
-            'Electronics' => [
-                'Smartphones',
-                'Laptops',
-                'Tablets',
-                'Monitors',
-            ],
+        $phones = Category::create([
+            'name' => 'Смартфоны',
+            'slug' => 'smartphones',
+        ]);
 
-            'Clothing' => [
-                'Men',
-                'Women',
-                'Kids',
-            ],
+        $phones->appendToNode($electronics)
+            ->save();
 
-            'Home' => [
-                'Furniture',
-                'Kitchen',
-                'Lighting',
-            ],
+        $iphone = Category::create([
+            'name' => 'iPhone',
+            'slug' => 'iphone',
+        ]);
 
-        ];
+        $android = Category::create([
+            'name' => 'Android',
+            'slug' => 'android',
+        ]);
 
-        foreach ($categories as $parentName => $children) {
-            $parent = Category::create([
-                'name' => $parentName,
-                'slug' => Str::slug($parentName),
-            ]);
+        $iphone->appendToNode($phones)
+            ->save();
 
-            foreach ($children as $child) {
-                Category::create([
-                    'parent_id' => $parent->id,
-                    'name' => $child,
-                    'slug' => Str::slug($child),
-                ]);
-            }
-        }
+        $android->appendToNode($phones)
+            ->save();
+
+        $laptops = Category::create([
+            'name'=>'Ноутбуки',
+            'slug'=>'laptops',
+        ]);
+
+        $laptops->appendToNode($electronics)
+            ->save();
     }
 }

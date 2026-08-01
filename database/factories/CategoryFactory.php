@@ -21,7 +21,6 @@ class CategoryFactory extends Factory
         );
 
         return [
-            'parent_id' => null,
             'name' => Str::title($name),
             'slug' => Str::slug($name),
             'description' => fake()->optional()->sentence(),

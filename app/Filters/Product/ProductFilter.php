@@ -4,13 +4,6 @@ namespace App\Filters\Product;
 
 use App\Data\Requests\Catalog\ProductIndexData;
 use App\Filters\Pipeline\FilterPipeline;
-use App\Filters\Product\Filters\AttributeFilter;
-use App\Filters\Product\Filters\BrandFilter;
-use App\Filters\Product\Filters\CategoryFilter;
-use App\Filters\Product\Filters\PriceFromFilter;
-use App\Filters\Product\Filters\PriceToFilter;
-use App\Filters\Product\Filters\SearchFilter;
-use App\Filters\Product\Filters\SortFilter;
 use Illuminate\Database\Eloquent\Builder;
 
 final readonly class ProductFilter

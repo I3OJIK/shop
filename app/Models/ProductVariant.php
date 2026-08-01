@@ -23,7 +23,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property \Illuminate\Support\Carbon                 $updated_at
  *
  * @property-read Product                               $product
- * @property-read Collection<int, VariantAttribute>     $variantAttributes
+ * @property-read Collection<int, VariantAttribute>     $attributes
  * @property-read Collection<int, ProductImage>         $images
  * @property-read Collection<int, CartItem>             $cartItems
  */
@@ -54,7 +54,7 @@ class ProductVariant extends Model
         );
     }
 
-    public function Attributes(): HasMany
+    public function attributes(): HasMany
     {
         return $this->hasMany(
             VariantAttribute::class

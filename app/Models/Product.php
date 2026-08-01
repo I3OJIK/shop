@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Product model
@@ -33,14 +34,12 @@ class Product extends Model
 {
     use HasFactory;
     protected $fillable = [
-
         'brand_id',
         'category_id',
         'name',
         'slug',
         'description',
         'is_active',
-
     ];
 
     protected $casts = [
@@ -95,5 +94,46 @@ class Product extends Model
         return $this->hasOne(ProductImage::class)
             ->whereNull('product_variant_id')
             ->where('is_main', true);
+    }
+
+    /**
+     *  Выборка только активных товаров
+     */
+    public function scopeActive(Builder $query): Builder
+    {
+        return $query->where(
+            'is_active',
+            true,
+        );
+    }
+
+    /** 
+     *  Подгрузка отношений для каталога товаров
+     */
+    public function scopeWithCatalogRelations(Builder $query): Builder
+    {
+        return $query->with([
+            'brand',
+            'category',
+            'mainImage',
+            'variants.attributes.attribute',
+            'variants.attributes.value',
+        ]);
+    }
+
+    /**
+     * Подгрузка отношений для страницы товара
+     */
+    public function scopeWithDetailsRelations(Builder $query): Builder
+    {
+        return $query->with([
+            'brand',
+            'category',
+            'images',
+            'productAttributes.attribute',
+            'productAttributes.value',
+            'variants.variantAttributes.attribute',
+            'variants.variantAttributes.value',
+        ]);
     }
 }
