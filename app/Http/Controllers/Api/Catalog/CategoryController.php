@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Http\Controllers\Api\Catalog;
 
 use App\Data\Requests\Catalog\ProductIndexData;
@@ -13,19 +11,16 @@ use Illuminate\Http\JsonResponse;
 class CategoryController extends Controller
 {
     public function __construct(
-        private readonly CatalogService $catalogService,
-    ) {
+        private CatalogService $catalogService,
+    ) {}
+
+    public function index(): JsonResponse
+    {
+        return response()->json($this->catalogService->getCategoriesTree());
     }
 
-    public function show(
-        Category $category,
-        ProductIndexData $data,
-    ): JsonResponse {
-        return response()->json(
-            $this->catalogService->category(
-                $category,
-                $data,
-            )
-        );
+    public function show(Category $category, ProductIndexData $data): JsonResponse
+    {
+        return response()->json($this->catalogService->getCategoryPage($category, $data));
     }
 }
