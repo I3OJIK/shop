@@ -31,6 +31,9 @@ class VariantData extends Data
 
         #[DataCollectionOf(AttributeData::class)]
         public array $attributes,
+
+        #[DataCollectionOf(ImageData::class)]
+        public array $images,
     ) {
     }
 
@@ -45,6 +48,9 @@ class VariantData extends Data
 
             attributes: AttributeData::collect(
                 $variant->attributes
+            )->all(),
+            images: ImageData::collect(
+                $variant->images
             )->all(),
         );
     }

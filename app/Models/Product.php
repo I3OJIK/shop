@@ -135,6 +135,7 @@ class Product extends Model
             'attributes.value',
             'variants.attributes.attribute',
             'variants.attributes.value',
+            'variants.images',
         ]);
     }
 }
