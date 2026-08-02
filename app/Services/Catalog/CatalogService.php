@@ -5,6 +5,7 @@ namespace App\Services\Catalog;
 use App\Data\Requests\Catalog\ProductIndexData;
 use App\Data\Responses\Catalog\CatalogProductData;
 use App\Data\Responses\Catalog\CategoryData;
+use App\Data\Responses\Catalog\ProductDetailsData;
 use App\Data\Responses\Category\CategoryPageData;
 use App\Data\Responses\Shared\BreadcrumbData;
 use App\Data\Responses\Shared\CategoryTreeData;
@@ -42,7 +43,12 @@ class CatalogService
         return CatalogProductData::collect($products, PaginatedDataCollection::class);
     }
 
-    // public function show(string $slug): ProductDetailsData {}
+    public function getPtoductDetails(Product $product): ProductDetailsData
+    {
+        $product->loadDetailsRelations();
+
+        return ProductDetailsData::fromModel($product);
+    }
 
     /**
      * Получить страницу категории с товарами
@@ -93,8 +99,8 @@ class CatalogService
     {
         return CategoryTreeData::collect(
             Category::defaultOrder()
-            ->get()
-            ->toTree()
+                ->get()
+                ->toTree()
         );
     }
 }

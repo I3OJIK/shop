@@ -4,6 +4,7 @@ namespace App\Data\Responses\Catalog;
 
 use App\Data\Responses\Shared\BreadcrumbData;
 use App\Models\Product;
+use App\Models\ProductAttribute;
 use OpenApi\Attributes as OA;
 use Spatie\LaravelData\Attributes\DataCollectionOf;
 use Spatie\LaravelData\Data;
@@ -36,7 +37,7 @@ class ProductDetailsData extends Data
 
         public CategoryData $category,
 
-        #[DataCollectionOf(AttributeData::class)]
+        #[DataCollectionOf(ProductAttributeData::class)]
         public array $attributes,
 
         #[DataCollectionOf(VariantData::class)]
@@ -48,6 +49,9 @@ class ProductDetailsData extends Data
 
     public static function fromModel(Product $product): self
     {
+        $breadcrumbs = $product->category
+            ->ancestorsAndSelf($product->category->id);
+
         return new self(
             id: $product->id,
 
@@ -57,18 +61,13 @@ class ProductDetailsData extends Data
 
             description: $product->description,
 
-            breadcrumbs: BreadcrumbData::collect(
-                $product->category
-                    ->ancestorsAndSelf()
-                    ->defaultOrder()
-                    ->get()
-            )->all(),
+            breadcrumbs: BreadcrumbData::collect($breadcrumbs)->all(),
 
             brand: BrandData::fromModel($product->brand),
 
             category: CategoryData::fromModel($product->category),
 
-            attributes: AttributeData::collect(
+            attributes: ProductAttributeData::collect(
                 $product->attributes
             )->all(),
 

@@ -122,18 +122,19 @@ class Product extends Model
     }
 
     /**
-     * Подгрузка отношений для страницы товара
+     * Загурзка отношений для страницы товара
      */
-    public function scopeWithDetailsRelations(Builder $query): Builder
+    public function loadDetailsRelations(): self
     {
-        return $query->with([
+        return $this->load([
             'brand',
             'category',
+            'category.ancestors',
             'images',
-            'productAttributes.attribute',
-            'productAttributes.value',
-            'variants.variantAttributes.attribute',
-            'variants.variantAttributes.value',
+            'attributes.attribute',
+            'attributes.value',
+            'variants.attributes.attribute',
+            'variants.attributes.value',
         ]);
     }
 }
