@@ -10,7 +10,7 @@ use Spatie\LaravelData\Attributes\DataCollectionOf;
 use Spatie\LaravelData\Data;
 
 #[OA\Schema]
-class ProductCardData extends Data
+class CatalogProductData extends Data
 {
     public function __construct(
         #[OA\Property(example: 25)]
