@@ -32,9 +32,6 @@ class CartItemData extends Data
         #[OA\Property(example: '1999.98')]
         public string $total,
 
-        #[OA\Property(example: 15)]
-        public int $stock,
-
         #[OA\Property(example: true)]
         public bool $is_selected,
 
@@ -64,8 +61,6 @@ class CartItemData extends Data
                 (string) $item->quantity,
                 2
             ),
-
-            stock: $variant->stock,
 
             is_selected: $item->is_selected,
 
